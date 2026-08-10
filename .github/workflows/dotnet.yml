@@ -1,0 +1,82 @@
+name: .NET build
+
+on:
+  push:
+    branches:
+      - main
+      - "feature/**"
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore DCWS.MainSite.sln
+
+      - name: Build
+        run: dotnet build DCWS.MainSite.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test DCWS.MainSite.sln --configuration Release --no-build
+
+      - name: Smoke test Kestrel and capture responsive views
+        shell: bash
+        run: |
+          mkdir -p artifacts/visual
+          dotnet run \
+            --project src/DCWS.MainSite.Web/DCWS.MainSite.Web.csproj \
+            --configuration Release \
+            --no-build \
+            --no-launch-profile \
+            --urls http://127.0.0.1:5080 \
+            > /tmp/dcws-kestrel.log 2>&1 &
+          app_pid=$!
+          trap 'kill "$app_pid" 2>/dev/null || true' EXIT
+
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error http://127.0.0.1:5080/ > /tmp/dcws-home.html; then
+              break
+            fi
+            if ! kill -0 "$app_pid" 2>/dev/null; then
+              cat /tmp/dcws-kestrel.log
+              exit 1
+            fi
+            sleep 1
+          done
+
+          test -s /tmp/dcws-home.html
+          grep --quiet '<title>DC Web Systems | Custom Web Applications</title>' /tmp/dcws-home.html
+          curl --fail --silent --show-error http://127.0.0.1:5080/css/site.css > /dev/null
+          curl --fail --silent --show-error http://127.0.0.1:5080/fonts/dm-sans-latin.woff2 > /dev/null
+          curl --fail --silent --show-error http://127.0.0.1:5080/images/favicon.svg > /dev/null
+
+          chrome_bin=$(command -v google-chrome || command -v chromium || command -v chromium-browser)
+          "$chrome_bin" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --window-size=1440,1000 \
+            --screenshot=artifacts/visual/desktop.png \
+            http://127.0.0.1:5080/
+          "$chrome_bin" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --window-size=390,844 --force-device-scale-factor=1 \
+            --screenshot=artifacts/visual/mobile.png \
+            http://127.0.0.1:5080/
+
+      - name: Upload visual verification
+        uses: actions/upload-artifact@v7
+        with:
+          name: responsive-screenshots
+          path: artifacts/visual
