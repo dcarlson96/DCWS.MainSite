@@ -74,8 +74,30 @@ Run the suite from Test Explorer or with `dotnet test DCWS.MainSite.sln`.
 
 ## Deployment
 
-The previous implementation produced a Vinext/Cloudflare Worker artifact for ChatGPT Sites. ASP.NET Core runs as a .NET server process and cannot be deployed with that build pipeline. The former Sites/Vinext manifest, Worker entrypoint, and npm build scripts have therefore been removed from this application branch.
+`.github/workflows/azure-app-service.yml` restores, builds, tests, and publishes the .NET 10 MVC web project, signs in to Azure with GitHub Actions OpenID Connect (OIDC), and deploys the published output to the Windows App Service `dcwebsystems-prod`. It runs after a push to `main` and can also be started manually from the GitHub Actions page. Manual runs must use the `main` branch; runs from any other ref are skipped.
 
-The existing production deployment is not changed by running this branch. Before directing `dcwebsystems.com` to the MVC application, provision a .NET-capable host and complete a controlled DNS cutover. Azure App Service is the recommended first option because it has direct ASP.NET Core and Visual Studio support. Cloudflare can remain the DNS, proxy, CDN, and WAF layer in front of the new origin.
+Create these repository secrets under **Settings > Secrets and variables > Actions**:
 
-See [docs/deployment-migration.md](docs/deployment-migration.md) for the migration and rollback plan.
+| Secret | Value |
+| --- | --- |
+| `AZURE_CLIENT_ID` | Client ID of the Azure user-assigned managed identity |
+| `AZURE_TENANT_ID` | Microsoft Entra directory (tenant) ID |
+| `AZURE_SUBSCRIPTION_ID` | Azure subscription ID containing the App Service |
+
+No publish profile, client secret, service-principal password, GitHub PAT, or basic-authentication credential is used.
+
+### Azure identity and access setup
+
+1. In resource group `DCWebSystems`, create a user-assigned managed identity for this deployment workflow.
+2. On that identity, add a federated credential for GitHub Actions with:
+   - Issuer: `https://token.actions.githubusercontent.com`
+   - Audience: `api://AzureADTokenExchange`
+   - Subject: `repo:dcarlson96@62816103/DCWS.MainSite@1329375297:ref:refs/heads/main`
+3. On App Service `dcwebsystems-prod`, open **Access control (IAM)** and assign the identity the **Website Contributor** role. Scope the assignment to this App Service resource, not the resource group or subscription.
+4. Copy the identity's client ID, tenant ID, and subscription ID into the three GitHub repository secrets listed above.
+
+The subject uses GitHub's immutable owner and repository IDs and permits Azure login only for workflows running from `main`. If the repository's GitHub OIDC settings preview a different subject, use that exact preview value for the Azure federated credential.
+
+To deploy manually after the workflow is present on `main`, open **Actions > Deploy to Azure App Service > Run workflow**, select `main`, and choose **Run workflow**.
+
+See [docs/deployment-migration.md](docs/deployment-migration.md) for the hosting migration and rollback plan.
