@@ -47,9 +47,14 @@ export default defineConfig(async () => {
     server: {
       host: "0.0.0.0",
       allowedHosts: ["terminal.local"],
-      ...(isCodexSeatbeltSandbox
-        ? { watch: { useFsEvents: false, usePolling: true } }
-        : {}),
+      watch: {
+        // Visual Studio locks files under .vs while indexing, which crashes
+        // Vite's watcher on Windows (EBUSY on FileContentIndex/*.vsidx).
+        ignored: ["**/.vs/**"],
+        ...(isCodexSeatbeltSandbox
+          ? { useFsEvents: false, usePolling: true }
+          : {}),
+      },
     },
     plugins: [
       vinext(),
