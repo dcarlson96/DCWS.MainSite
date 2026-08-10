@@ -4,8 +4,37 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+    <meta name="description" content="Custom web applications, customer portals, APIs, and system integrations built in Boise, Idaho." />
+    <link rel="icon" href="~/images/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    @RenderBody()
+    <main>
+        <header class="site-header">
+            <a class="brand" href="#top" aria-label="DC Web Systems home">
+                <span class="brand-mark">DC</span>
+                <span>Web Systems</span>
+            </a>
+            <nav aria-label="Main navigation">
+                <a href="#services">Services</a>
+                <a href="#work">Work</a>
+                <a href="#about">About</a>
+            </nav>
+            <a class="header-cta" href="mailto:hello@dcwebsystems.com">
+                Start a project <span aria-hidden="true">↗</span>
+            </a>
+        </header>
+
+        @RenderBody()
+
+        <footer>
+            <a class="brand" href="#top">
+                <span class="brand-mark">DC</span>
+                <span>Web Systems</span>
+            </a>
+            <p>Custom web applications · Boise, Idaho</p>
+            <p>© @DateTime.UtcNow.Year DC Web Systems</p>
+        </footer>
+    </main>
 </body>
 </html>

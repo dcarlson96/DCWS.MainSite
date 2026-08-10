@@ -3,11 +3,11 @@
     ViewData["Title"] = "Error | DC Web Systems";
 }
 
-<main>
+<section class="error-page">
     <h1>Something went wrong.</h1>
     <p>Please try again.</p>
     @if (Model.ShowRequestId)
     {
         <p>Request ID: <code>@Model.RequestId</code></p>
     }
-</main>
+</section>
