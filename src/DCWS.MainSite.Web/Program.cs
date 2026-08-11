@@ -11,6 +11,23 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.Use(async (context, next) =>
+{
+    if (context.Request.Host.Host.Equals(
+        "www.dcwebsystems.com",
+        StringComparison.OrdinalIgnoreCase))
+    {
+        var redirectUrl =
+            $"https://dcwebsystems.com{context.Request.PathBase}{context.Request.Path}{context.Request.QueryString}";
+
+        context.Response.Redirect(redirectUrl, permanent: true);
+        return;
+    }
+
+    await next();
+});
+
 app.UseStaticFiles();
 
 app.UseRouting();
