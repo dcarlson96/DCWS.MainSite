@@ -1,6 +1,6 @@
 # DCWS.MainSite
 
-The public website for **DC Web Systems**, implemented as a conventional server-rendered ASP.NET Core MVC application.
+The public website for DC Web Systems, built as a conventional server-rendered ASP.NET Core MVC application to showcase services, highlight portfolio projects, and provide information for prospective clients.
 
 ## Prerequisites
 
