@@ -168,7 +168,7 @@ body.nav-open { overflow: hidden; }
   display: none;
   position: fixed;
   top: 88px; left: 0; right: 0; bottom: 0;
-  background: rgba(16, 21, 26, 0.93);
+  background: rgba(16, 21, 26, 0.98);
   transform: translateY(100%);
   transition: transform .35s cubic-bezier(.4,0,.2,1);
   z-index: 1000;
