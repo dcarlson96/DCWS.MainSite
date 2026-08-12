@@ -204,11 +204,13 @@ body.nav-open .mobile-nav { transform: translateY(0); }
   .header-cta { font-size: 0; }.header-cta span { font-size: 20px; }
   .hero { padding-top: 60px; }
   .hero-actions { align-items: flex-start; flex-direction: column; gap: 22px; }
+  .hero-services-link { display: none; }
   .system-card { min-height: 350px; padding: 18px; }
   .orbit-two { width: 280px; height: 280px; }.orbit-one { width: 190px; height: 190px; }
   .services { padding-top: 80px; }
   .service { grid-template-columns: 34px 1fr; }.service-arrow { display: none; }
-  .section-kicker { flex-direction: column; }
+  .work .section-kicker { flex-direction: column; gap: 16px; margin-bottom: 28px; }
+  .work .section-kicker .eyebrow { margin-bottom: 0; }
   .map-visual { height: 250px; }
   .about { gap: 20px; padding-top: 84px; padding-bottom: 90px; }
   .contact { padding-top: 90px; }
