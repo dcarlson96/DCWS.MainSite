@@ -25,7 +25,21 @@
             <a class="header-cta" href="mailto:hello@dcwebsystems.com">
                 Start a project <span aria-hidden="true">↗</span>
             </a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </header>
+        <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+            <nav aria-label="Mobile navigation">
+                <a href="/#services">Services</a>
+                <a href="/#work">Work</a>
+                <a href="/#about">About</a>
+                <a href="/Portfolio">Portfolio</a>
+                <a class="nav-email" href="mailto:hello@dcwebsystems.com">hello@dcwebsystems.com</a>
+            </nav>
+        </div>
 
         @RenderBody()
 
