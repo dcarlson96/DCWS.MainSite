@@ -30,7 +30,7 @@ public sealed class HomePageTests : IClassFixture<WebApplicationFactory<Program>
         Assert.Contains("id=\"services\"", html);
         Assert.Contains("id=\"work\"", html);
         Assert.Contains("id=\"about\"", html);
-        Assert.Contains("hello@dcwebsystems.com", html);
+        Assert.Contains("dylan@dcwebsystems.com", html);
         Assert.Contains($"© {DateTime.UtcNow.Year} DC Web Systems", html);
     }
 
