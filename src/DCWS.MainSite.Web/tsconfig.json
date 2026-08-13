@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "None",
+    "moduleResolution": "Node",
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "outDir": "wwwroot/js"
+  },
+  "include": [
+    "Scripts/**/*.ts"
+  ]
+}

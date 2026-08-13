@@ -16,8 +16,10 @@ concurrency:
 env:
   AZURE_WEBAPP_NAME: dcwebsystems-prod
   DOTNET_VERSION: 10.0.x
+  NODE_VERSION: 22.x
   SOLUTION_PATH: DCWS.MainSite.sln
   WEB_PROJECT_PATH: src/DCWS.MainSite.Web/DCWS.MainSite.Web.csproj
+  WEB_PROJECT_DIR: src/DCWS.MainSite.Web
   PUBLISH_PATH: ${{ github.workspace }}/publish
 
 jobs:
@@ -30,6 +32,21 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: ${{ env.WEB_PROJECT_DIR }}/package-lock.json
+
+      - name: Install front-end dependencies
+        run: npm ci
+        working-directory: ${{ env.WEB_PROJECT_DIR }}
+
+      - name: Build front-end assets
+        run: npm run build
+        working-directory: ${{ env.WEB_PROJECT_DIR }}
 
       - name: Set up .NET
         uses: actions/setup-dotnet@v6

@@ -1,0 +1,20 @@
+{
+  "name": "dcws.mainsite.web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Front-end asset build pipeline for the DC Web Systems site (SCSS + TypeScript compiled via Gulp).",
+  "scripts": {
+    "build": "gulp build",
+    "watch": "gulp watch"
+  },
+  "devDependencies": {
+    "gulp": "^5.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-terser": "^2.1.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "sass": "^1.77.0",
+    "typescript": "^5.5.0"
+  }
+}

@@ -28,3 +28,7 @@ appsettings.Local.json
 *.log
 .DS_Store
 Thumbs.db
+
+# Front-end build tooling
+node_modules/
+npm-debug.log*

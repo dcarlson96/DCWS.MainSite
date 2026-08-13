@@ -6,4 +6,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <!--
+    Front-end assets (TypeScript in Scripts/, SCSS in Styles/) are authored outside wwwroot
+    and compiled by Gulp into wwwroot/js and wwwroot/css. The compiled output is committed to
+    source control so `dotnet build`/F5 debugging in Visual Studio works without Node.js installed.
+
+    To guarantee `dotnet publish` never ships stale assets, this target runs `npm ci` and
+    `npm run build` before publishing. It intentionally only hooks into the publish pipeline
+    (not the normal Build target) so everyday inner-loop builds stay fast and do not require
+    Node.js/npm to be installed locally.
+  -->
+  <Target Name="BuildFrontendAssets" BeforeTargets="BeforePublish">
+    <Exec Command="npm ci" WorkingDirectory="$(MSBuildProjectDirectory)" />
+    <Exec Command="npm run build" WorkingDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
+
 </Project>
