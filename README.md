@@ -6,8 +6,9 @@ The public website for DC Web Systems, built as a conventional server-rendered A
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0)
 - Visual Studio with the **ASP.NET and web development** workload, or any editor that supports the .NET CLI
+- [Node.js](https://nodejs.org/) (LTS) and npm, only if you plan to edit front-end source (TypeScript/SCSS) under `Scripts/`/`Styles/` and rebuild the generated assets
 
-Node.js and npm are not required.
+Generated CSS/JS under `wwwroot/css` and `wwwroot/js` are committed to the repository, so Node.js is **not** required just to build and run the site.
 
 ## Run with Visual Studio
 
@@ -46,13 +47,28 @@ src/
     Properties/
     Views/
       Home/
+      Portfolio/
       Shared/
+    Scripts/
+      site.ts
+    Styles/
+      site.scss
+      _variables.scss
+      _base.scss
+      home/
+        _home.scss
+      portfolio/
+        _portfolio.scss
     wwwroot/
       css/
       fonts/
       images/
+      js/
     Program.cs
     appsettings.json
+    gulpfile.js
+    package.json
+    tsconfig.json
     DCWS.MainSite.Web.csproj
 tests/
   DCWS.MainSite.Web.Tests/
@@ -60,7 +76,34 @@ docs/
   deployment-migration.md
 ```
 
-The site uses Razor views and plain CSS. It has no SPA, React, Vite, TypeScript, or client-side package-manager runtime. Add JavaScript under `wwwroot` only when a feature actually requires browser-side behavior.
+The site uses Razor views for markup. There is no SPA, React, Vite, or client-side module runtime shipped to the browser.
+
+## Front-end asset workflow
+
+Front-end source lives outside `wwwroot`:
+
+- `Scripts/**/*.ts` — hand-authored TypeScript, compiled and minified into `wwwroot/js`
+- `Styles/**/*.scss` — hand-authored Sass, compiled and minified into `wwwroot/css`
+
+[Gulp](https://gulpjs.com/) drives the build. Edit the `.ts`/`.scss` source files, **not** the generated files under `wwwroot/css`/`wwwroot/js` — those are build output and will be overwritten.
+
+From `src/DCWS.MainSite.Web`:
+
+```powershell
+cd src/DCWS.MainSite.Web
+npm install
+npm run build
+```
+
+`npm run build` compiles `Styles/site.scss` → `wwwroot/css/site.css` and `Scripts/site.ts` → `wwwroot/js/site.js`, with source maps for debugging.
+
+While actively editing front-end source, run the watcher to rebuild on save:
+
+```powershell
+npm run watch
+```
+
+Generated assets under `wwwroot/css` and `wwwroot/js` are currently committed to the repository so the site can be built and run from Visual Studio without Node.js installed. `dotnet publish` (including the CI/CD pipeline) automatically runs `npm ci` and `npm run build` before publishing, so published output always reflects the latest front-end source — see the `BuildFrontendAssets` MSBuild target in `DCWS.MainSite.Web.csproj`. This does not run during normal incremental `dotnet build`/F5, so local C# development is unaffected.
 
 ## Tests
 

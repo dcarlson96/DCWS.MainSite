@@ -53,23 +53,5 @@
         </footer>
     </main>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        (function () {
-            var toggle = document.querySelector('.nav-toggle');
-            var nav = document.getElementById('mobile-nav');
-            toggle.addEventListener('click', function () {
-                var open = document.body.classList.toggle('nav-open');
-                toggle.setAttribute('aria-expanded', open);
-                nav.setAttribute('aria-hidden', !open);
-            });
-            nav.querySelectorAll('a').forEach(function (a) {
-                a.addEventListener('click', function () {
-                    document.body.classList.remove('nav-open');
-                    toggle.setAttribute('aria-expanded', 'false');
-                    nav.setAttribute('aria-hidden', 'true');
-                });
-            });
-        })();
-    </script>
 </body>
 </html>
