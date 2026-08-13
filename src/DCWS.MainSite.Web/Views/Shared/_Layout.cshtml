@@ -12,6 +12,7 @@
     <main>
         <header class="site-header">
             <a class="brand" href="#top" aria-label="DC Web Systems home">
+                <span id="api-status-dot" class="api-status-dot api-status-waiting" title="Checking API status"></span>
                 <span class="brand-mark">DC</span>
                 <span>Web Systems</span>
             </a>
@@ -51,6 +52,7 @@
             <p>© @DateTime.UtcNow.Year DC Web Systems</p>
         </footer>
     </main>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
         (function () {
             var toggle = document.querySelector('.nav-toggle');
