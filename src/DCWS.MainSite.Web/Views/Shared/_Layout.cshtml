@@ -12,6 +12,7 @@
     <main>
         <header class="site-header">
             <a class="brand" href="#top" aria-label="DC Web Systems home">
+                <span id="api-status-dot" class="api-status-dot api-status-waiting" title="Checking API status"></span>
                 <span class="brand-mark">DC</span>
                 <span>Web Systems</span>
             </a>
@@ -37,5 +38,24 @@
             <p>© @DateTime.UtcNow.Year DC Web Systems</p>
         </footer>
     </main>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        (function () {
+            var toggle = document.querySelector('.nav-toggle');
+            var nav = document.getElementById('mobile-nav');
+            toggle.addEventListener('click', function () {
+                var open = document.body.classList.toggle('nav-open');
+                toggle.setAttribute('aria-expanded', open);
+                nav.setAttribute('aria-hidden', !open);
+            });
+            nav.querySelectorAll('a').forEach(function (a) {
+                a.addEventListener('click', function () {
+                    document.body.classList.remove('nav-open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    nav.setAttribute('aria-hidden', 'true');
+                });
+            });
+        })();
+    </script>
 </body>
 </html>

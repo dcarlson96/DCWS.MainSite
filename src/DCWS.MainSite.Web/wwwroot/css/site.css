@@ -48,6 +48,16 @@ a { color: inherit; text-decoration: none; }
   display: grid; place-items: center; width: 38px; height: 38px;
   color: white; background: var(--ink); border-radius: 50%; font-size: 12px; letter-spacing: .06em;
 }
+.api-status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.api-status-waiting { background-color: orange; }
+.api-status-success { background-color: green; }
+.api-status-error { background-color: red; }
 nav { display: flex; gap: 40px; font-size: 14px; color: #3e464d; }
 nav a, .text-link { transition: color .2s ease; }
 nav a:hover, .text-link:hover { color: var(--blue); }
