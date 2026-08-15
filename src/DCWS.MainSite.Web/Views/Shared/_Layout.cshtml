@@ -8,11 +8,11 @@
     <link rel="icon" href="~/images/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body>
+<body data-bind="css: { 'nav-open': navOpen }">
     <main>
         <header class="site-header">
             <a class="brand" href="#top" aria-label="DC Web Systems home">
-                <span id="api-status-dot" class="api-status-dot api-status-waiting" title="Checking API status"></span>
+                <span id="api-status-dot" class="api-status-dot api-status-waiting" title="Checking API status" data-bind="attr: { class: statusDotClass, title: statusTitle }"></span>
                 <span class="brand-mark">DC</span>
                 <span>Web Systems</span>
             </a>
@@ -25,19 +25,19 @@
             <a class="header-cta" href="mailto:dylan@dcwebsystems.com">
                 Start a project <span aria-hidden="true">↗</span>
             </a>
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" data-bind="click: toggleNav, attr: { 'aria-expanded': navOpen }">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </header>
-        <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+        <div class="mobile-nav" id="mobile-nav" aria-hidden="true" data-bind="attr: { 'aria-hidden': !navOpen() }">
             <nav aria-label="Mobile navigation">
-                <a href="/#services">Services</a>
-                <a href="/#work">Work</a>
-                <a href="/#about">About</a>
-                <a href="/Portfolio">Portfolio</a>
-                <a class="nav-email" href="mailto:dylan@dcwebsystems.com">dylan@dcwebsystems.com</a>
+                <a href="/#services" data-bind="click: closeNav">Services</a>
+                <a href="/#work" data-bind="click: closeNav">Work</a>
+                <a href="/#about" data-bind="click: closeNav">About</a>
+                <a href="/Portfolio" data-bind="click: closeNav">Portfolio</a>
+                <a class="nav-email" href="mailto:dylan@dcwebsystems.com" data-bind="click: closeNav">dylan@dcwebsystems.com</a>
             </nav>
         </div>
 
@@ -52,6 +52,11 @@
             <p>© @DateTime.UtcNow.Year DC Web Systems</p>
         </footer>
     </main>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <partial name="_ApiConfig" />
+    <script src="~/js/lib/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/js/lib/knockout.min.js" asp-append-version="true"></script>
+    <script src="~/js/app-config.js" asp-append-version="true"></script>
+    <script src="~/js/Layout.js" asp-append-version="true"></script>
+    <script src="~/js/Layout.Main.js" asp-append-version="true"></script>
 </body>
 </html>

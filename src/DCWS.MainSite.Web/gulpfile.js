@@ -7,6 +7,7 @@ const sourcemaps = require("gulp-sourcemaps");
 const cleanCss = require("gulp-clean-css");
 const ts = require("gulp-typescript");
 const terser = require("gulp-terser");
+const rename = require("gulp-rename");
 
 const paths = {
   styles: {
@@ -17,6 +18,13 @@ const paths = {
   scripts: {
     watch: "Scripts/**/*.ts",
     dest: "wwwroot/js"
+  },
+  vendor: {
+    src: [
+      "node_modules/jquery/dist/jquery.min.js",
+      "node_modules/knockout/build/output/knockout-latest.js"
+    ],
+    dest: "wwwroot/js/lib"
   }
 };
 
@@ -42,15 +50,27 @@ function scripts() {
     .pipe(gulp.dest(paths.scripts.dest));
 }
 
+function vendor() {
+  return gulp
+    .src(paths.vendor.src)
+    .pipe(rename(function (path) {
+      if (path.basename === "knockout-latest") {
+        path.basename = "knockout.min";
+      }
+    }))
+    .pipe(gulp.dest(paths.vendor.dest));
+}
+
 function watch() {
   gulp.watch(paths.styles.watch, styles);
   gulp.watch(paths.scripts.watch, scripts);
 }
 
-const build = gulp.parallel(styles, scripts);
+const build = gulp.parallel(styles, scripts, vendor);
 
 exports.styles = styles;
 exports.scripts = scripts;
+exports.vendor = vendor;
 exports.build = build;
 exports.watch = watch;
 exports.default = build;

@@ -10,7 +10,8 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "removeComments": false,
-    "isolatedModules": true,
+    "isolatedModules": false,
+    "types": ["jquery", "knockout"],
     "skipLibCheck": true,
     "outDir": "wwwroot/js"
   },
