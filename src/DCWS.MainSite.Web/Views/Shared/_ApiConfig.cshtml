@@ -1,0 +1,5 @@
+@inject IConfiguration Configuration
+@{
+    var statusApi = Configuration["Apis:StatusApi"];
+}
+<div id="api-config" data-status-api="@statusApi" hidden></div>

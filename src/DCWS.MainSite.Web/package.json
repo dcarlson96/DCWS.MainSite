@@ -8,13 +8,20 @@
     "watch": "gulp watch"
   },
   "devDependencies": {
+    "@types/jquery": "^3.5.30",
+    "@types/knockout": "^3.4.79",
     "gulp": "^5.0.0",
     "gulp-clean-css": "^4.3.0",
+    "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-terser": "^2.1.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "sass": "^1.77.0",
     "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "knockout": "^3.5.1"
   }
 }
