@@ -29,10 +29,14 @@ interface ArcGisGraphicsCollection {
     removeAll(): void;
 }
 
+interface ArcGisMapViewUi {
+    remove(component: string): void;
+}
+
 interface ArcGisMapView {
     graphics: ArcGisGraphicsCollection;
     goTo(target: Record<string, unknown>, options?: Record<string, unknown>): Promise<void>;
-    resize(): void;
+    ui: ArcGisMapViewUi;
     when(): Promise<unknown>;
 }
 
@@ -261,12 +265,12 @@ namespace DCWS.ViewModels {
                         container: container,
                         map: map,
                         center: [longitude, latitude],
-                        zoom: 16
+                        zoom: 8
                     });
                 }
 
                 await this.mapView.when();
-                this.mapView.resize();
+                this.mapView.ui.remove("zoom");
 
                 const marker = new Graphic({
                     geometry: {
@@ -298,7 +302,8 @@ namespace DCWS.ViewModels {
                 await this.mapView.goTo(
                     { center: [longitude, latitude], zoom: 16 },
                     { duration: 500 });
-            } catch {
+            } catch (error) {
+                console.error("ArcGIS map initialization failed:", error);
                 this.mapError("The location was found, but the map could not be loaded.");
             }
         }

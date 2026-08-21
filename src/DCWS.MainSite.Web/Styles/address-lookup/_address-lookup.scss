@@ -73,6 +73,10 @@
 .location-grid p { margin-bottom: 9px; }
 .location-grid strong { font: 650 clamp(21px, 2.2vw, 30px) var(--font-display), sans-serif; }
 
+#address-map {
+    pointer-events: none;
+}
+
 @media (max-width: 900px) {
   .lookup-hero { grid-template-columns: 1fr; gap: 34px; }
   .lookup-hero .hero-intro { max-width: 680px; }
