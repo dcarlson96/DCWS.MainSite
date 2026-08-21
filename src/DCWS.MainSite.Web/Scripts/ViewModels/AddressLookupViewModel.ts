@@ -181,6 +181,8 @@ namespace DCWS.ViewModels {
 
             await this.afterDomUpdate();
             await this.updateMap(item.longitude, item.latitude, item.matchedAddress);
+
+            this.scrollToMap();
         }
 
         private handleFailure(xhr: JQueryXHR): void {
@@ -229,6 +231,19 @@ namespace DCWS.ViewModels {
 
         private afterDomUpdate(): Promise<void> {
             return new Promise((resolve: () => void) => window.requestAnimationFrame(() => resolve()));
+        }
+
+        private scrollToMap(): void {
+            const mapElement = document.getElementById("address-map");
+
+            if (!mapElement) {
+                return;
+            }
+
+            mapElement.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
         }
 
         private async updateMap(longitude: number, latitude: number, matchedAddress: string): Promise<void> {

@@ -8,6 +8,18 @@
 }
 
 <div id="address-lookup-page" data-bind="with: addressLookup">
+    <div class="address-lookup-loading"
+         data-bind="visible: isLoading"
+         style="display: none"
+         role="status"
+         aria-live="polite"
+         aria-label="Looking up address">
+        <div class="address-lookup-loading__content">
+            <div class="address-lookup-loading__spinner" aria-hidden="true"></div>
+            <p>Looking up address...</p>
+        </div>
+    </div>
+
     <section class="lookup-hero" id="top">
         <div>
             <p class="eyebrow"><span></span> Interactive map tool</p>
