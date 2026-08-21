@@ -1,0 +1,177 @@
+@{
+    ViewData["Title"] = "Address & District Lookup | DC Web Systems";
+}
+
+@section Head {
+    <link rel="stylesheet" href="https://js.arcgis.com/5.1/esri/themes/light/main.css" />
+    <script type="module" src="https://js.arcgis.com/5.1/"></script>
+}
+
+<div id="address-lookup-page" data-bind="with: addressLookup">
+    <div class="address-lookup-loading"
+         data-bind="visible: isLoading"
+         style="display: none"
+         role="status"
+         aria-live="polite"
+         aria-label="Looking up address">
+        <div class="address-lookup-loading__content">
+            <div class="address-lookup-loading__spinner" aria-hidden="true"></div>
+            <p>Looking up address...</p>
+        </div>
+    </div>
+
+    <section class="lookup-hero" id="top">
+        <div>
+            <p class="eyebrow"><span></span> Interactive map tool</p>
+            <h1>Find the districts<br /><em>for your address.</em></h1>
+        </div>
+        <p class="hero-intro">
+            Enter a U.S. address to identify its county, congressional district,
+            state house district, and state senate district.
+        </p>
+    </section>
+
+    <section class="lookup-content" aria-labelledby="lookup-form-heading">
+        <div class="lookup-form-panel">
+            <div class="lookup-panel-heading">
+                <p class="lookup-step">01 / ENTER AN ADDRESS</p>
+                <h2 id="lookup-form-heading">Address details</h2>
+                <p>Use the complete street address for the most accurate match.</p>
+            </div>
+
+            <form class="address-form" data-bind="submit: submit" novalidate>
+                <div class="form-field form-field-wide">
+                    <label for="street">Street Address</label>
+                    <input id="street"
+                           name="Street"
+                           type="text"
+                           autocomplete="street-address"
+                           placeholder="10056 W Crestwater St."
+                           data-bind="textInput: street, attr: { 'aria-invalid': streetError() ? 'true' : 'false', 'aria-describedby': streetError() ? 'street-error' : null }" />
+                    <p id="street-error" class="field-error" style="display: none" data-bind="visible: streetError, text: streetError"></p>
+                </div>
+
+                <div class="form-field">
+                    <label for="city">City</label>
+                    <input id="city"
+                           name="City"
+                           type="text"
+                           autocomplete="address-level2"
+                           placeholder="Boise"
+                           data-bind="textInput: city, attr: { 'aria-invalid': cityError() ? 'true' : 'false', 'aria-describedby': cityError() ? 'city-error' : null }" />
+                    <p id="city-error" class="field-error" style="display: none" data-bind="visible: cityError, text: cityError"></p>
+                </div>
+
+                <div class="form-field">
+                    <label for="state">State</label>
+                    <select id="state"
+                            name="State"
+                            autocomplete="address-level1"
+                            data-bind="value: state, attr: { 'aria-invalid': stateError() ? 'true' : 'false', 'aria-describedby': stateError() ? 'state-error' : null }">
+                        <option value="">Select state</option>
+                        <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option>
+                        <option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option>
+                        <option value="CT">CT</option><option value="DE">DE</option><option value="FL">FL</option>
+                        <option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option>
+                        <option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option>
+                        <option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option>
+                        <option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option>
+                        <option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option>
+                        <option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option>
+                        <option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option>
+                        <option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option>
+                        <option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option>
+                        <option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option>
+                        <option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option>
+                        <option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option>
+                        <option value="VA">VA</option><option value="WA">WA</option><option value="WV">WV</option>
+                        <option value="WI">WI</option><option value="WY">WY</option><option value="DC">DC</option>
+                    </select>
+                    <p id="state-error" class="field-error" style="display: none" data-bind="visible: stateError, text: stateError"></p>
+                </div>
+
+                <div class="form-field">
+                    <label for="zip-code">ZIP Code</label>
+                    <input id="zip-code"
+                           name="ZipCode"
+                           type="text"
+                           inputmode="numeric"
+                           autocomplete="postal-code"
+                           maxlength="10"
+                           placeholder="83709"
+                           data-bind="textInput: zipCode, attr: { 'aria-invalid': zipCodeError() ? 'true' : 'false', 'aria-describedby': zipCodeError() ? 'zip-code-error' : null }" />
+                    <p id="zip-code-error" class="field-error" style="display: none" data-bind="visible: zipCodeError, text: zipCodeError"></p>
+                </div>
+
+                <div class="form-actions form-field-wide">
+                    <button class="button button-primary lookup-submit" type="submit" data-bind="disable: isLoading, attr: { 'aria-busy': isLoading }">
+                        <span data-bind="visible: !isLoading()">Look up address</span>
+                        <span class="loading-label" data-bind="visible: isLoading">
+                            <span class="loading-spinner" aria-hidden="true"></span>
+                            Finding districts…
+                        </span>
+                        <span aria-hidden="true" data-bind="visible: !isLoading()">↗</span>
+                    </button>
+                </div>
+            </form>
+
+            <div class="lookup-errors"
+                 style="display: none"
+                 role="alert"
+                 aria-live="assertive"
+                 data-bind="visible: errorMessages().length > 0">
+                <p>We couldn’t complete that lookup.</p>
+                <ul data-bind="foreach: errorMessages">
+                    <li data-bind="text: $data"></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="lookup-results"
+             style="display: none"
+             aria-labelledby="lookup-results-heading"
+             aria-live="polite"
+             data-bind="visible: hasResult">
+        <div class="result-heading">
+            <p class="lookup-step">02 / MATCHED LOCATION</p>
+            <h2 id="lookup-results-heading" data-bind="text: matchedAddress"></h2>
+            <p>District boundaries and location details for the matched address.</p>
+        </div>
+
+        <div class="map-shell">
+            <div id="address-map" class="address-map" role="region" aria-label="Map of the matched address"></div>
+            <div class="map-error" style="display: none" role="status" data-bind="visible: mapError, text: mapError"></div>
+        </div>
+
+        <div class="district-grid">
+            <article class="district-card district-card-primary">
+                <p>Congressional District</p>
+                <strong data-bind="text: congressionalDistrict"></strong>
+            </article>
+            <article class="district-card">
+                <p>State House District</p>
+                <strong data-bind="text: stateHouseDistrict"></strong>
+            </article>
+            <article class="district-card">
+                <p>State Senate District</p>
+                <strong data-bind="text: stateSenateDistrict"></strong>
+            </article>
+        </div>
+
+        <div class="location-grid">
+            <article>
+                <p>County</p>
+                <strong data-bind="text: county"></strong>
+            </article>
+            <article>
+                <p>State</p>
+                <strong data-bind="text: resultState"></strong>
+            </article>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/js/ViewModels/AddressLookupViewModel.js" asp-append-version="true"></script>
+}
