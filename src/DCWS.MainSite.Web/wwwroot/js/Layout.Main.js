@@ -1,2 +1,2 @@
-"use strict";document.addEventListener("DOMContentLoaded",function(){const n=window.AppConfig&&window.AppConfig.apis?window.AppConfig.apis.statusApi:"",o=new DCWS.ViewModels.LayoutViewModel(n);ko.applyBindings(o,document.body)});
+"use strict";document.addEventListener("DOMContentLoaded",function(){const o=window.AppConfig&&window.AppConfig.apis?window.AppConfig.apis.statusApi:"",e=new DCWS.ViewModels.LayoutViewModel(o);document.getElementById("address-lookup-page")&&(e.addressLookup=new DCWS.ViewModels.AddressLookupViewModel(window.AppConfig.apis.addressLookupApi,window.AppConfig.arcGis.apiKey)),ko.applyBindings(e,document.body)});
 //# sourceMappingURL=Layout.Main.js.map

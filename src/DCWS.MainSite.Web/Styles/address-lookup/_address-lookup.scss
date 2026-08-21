@@ -1,0 +1,98 @@
+.lookup-hero {
+  padding: clamp(70px, 9vh, 116px) clamp(24px, 5vw, 76px) clamp(72px, 9vw, 112px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, .65fr);
+  align-items: end;
+  gap: clamp(48px, 9vw, 150px);
+  border-bottom: 1px solid var(--line);
+}
+
+.lookup-hero h1 { font-size: clamp(48px, 6vw, 92px); }
+.lookup-hero .hero-intro { margin: 0 0 8px; font-size: clamp(17px, 1.4vw, 21px); }
+
+.lookup-content { padding: clamp(72px, 8vw, 112px) clamp(24px, 8vw, 136px); }
+.lookup-form-panel { max-width: 1120px; margin: 0 auto; padding: clamp(28px, 5vw, 68px); border: 1px solid var(--line); background: #ebeae5; }
+.lookup-panel-heading { max-width: 630px; }
+.lookup-panel-heading h2, .result-heading h2 { margin: 0; font-size: clamp(31px, 3.2vw, 48px); line-height: 1.08; letter-spacing: -.04em; }
+.lookup-panel-heading > p:last-child, .result-heading > p:last-child { margin: 17px 0 0; color: var(--muted); line-height: 1.65; }
+.lookup-step { margin: 0 0 22px; color: var(--blue); font: 700 10px var(--font-display), sans-serif; letter-spacing: .15em; }
+
+.address-form { margin-top: 46px; display: grid; grid-template-columns: 1.35fr .65fr .65fr; gap: 25px 20px; }
+.form-field { min-width: 0; }
+.form-field-wide { grid-column: 1 / -1; }
+.form-field label { display: block; margin-bottom: 9px; font: 700 12px var(--font-display), sans-serif; letter-spacing: .02em; }
+.form-field input, .form-field select {
+  width: 100%;
+  height: 54px;
+  padding: 0 15px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid rgba(16, 21, 26, .28);
+  border-radius: 0;
+  font: 500 16px var(--font-body), sans-serif;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-field select { cursor: pointer; }
+.form-field input::placeholder { color: #8a9095; }
+.form-field input:focus, .form-field select:focus { outline: 0; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(41, 89, 255, .15); }
+.form-field input[aria-invalid="true"], .form-field select[aria-invalid="true"] { border-color: #b42318; }
+.field-error { min-height: 18px; margin: 7px 0 0; color: #9c1c14; font-size: 12px; line-height: 1.4; }
+
+.form-actions { margin-top: 10px; }
+.lookup-submit { min-width: 210px; justify-content: space-between; border: 0; cursor: pointer; font-family: var(--font-body), sans-serif; }
+.lookup-submit:focus-visible { outline: 3px solid rgba(41, 89, 255, .3); outline-offset: 3px; }
+.lookup-submit:disabled { cursor: wait; opacity: .72; transform: none; }
+.loading-label { align-items: center; gap: 10px; }
+.loading-spinner { width: 15px; height: 15px; border: 2px solid rgba(255,255,255,.42); border-top-color: white; border-radius: 50%; animation: lookup-spin .8s linear infinite; }
+@keyframes lookup-spin { to { transform: rotate(360deg); } }
+
+.lookup-errors { margin-top: 28px; padding: 18px 20px; color: #7a1711; background: #fff0ee; border-left: 3px solid #b42318; }
+.lookup-errors p { margin: 0 0 8px; font-weight: 700; }
+.lookup-errors ul { margin: 0; padding-left: 19px; }
+.lookup-errors li + li { margin-top: 5px; }
+
+.lookup-results { padding: clamp(76px, 8vw, 116px) clamp(24px, 5vw, 76px) clamp(92px, 10vw, 140px); background: var(--ink); color: white; }
+.result-heading { max-width: 850px; margin-bottom: 44px; }
+.result-heading .lookup-step { color: #7ea0ff; }
+.result-heading > p:last-child { color: #aeb5ba; }
+.map-shell { position: relative; overflow: hidden; min-height: 460px; background: #dfe3e4; border: 1px solid rgba(255,255,255,.18); }
+.address-map { width: 100%; min-height: 460px; }
+.map-error { position: absolute; inset: 0; display: grid; place-items: center; padding: 30px; text-align: center; color: #4d555d; background: #e5e6e3; }
+
+.district-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid rgba(255,255,255,.2); }
+.district-card { min-height: 190px; padding: clamp(25px, 3vw, 40px); border-right: 1px solid rgba(255,255,255,.2); }
+.district-card:last-child { border-right: 0; }
+.district-card p, .location-grid p { margin: 0 0 30px; color: #aeb5ba; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.district-card strong { font: 650 clamp(40px, 5vw, 72px) var(--font-display), sans-serif; letter-spacing: -.045em; }
+.district-card-primary { background: var(--blue); }
+.district-card-primary p { color: rgba(255,255,255,.78); }
+
+.location-grid { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid rgba(255,255,255,.2); border-top: 0; }
+.location-grid article { padding: 25px clamp(25px, 3vw, 40px) 30px; }
+.location-grid article:first-child { border-right: 1px solid rgba(255,255,255,.2); }
+.location-grid p { margin-bottom: 9px; }
+.location-grid strong { font: 650 clamp(21px, 2.2vw, 30px) var(--font-display), sans-serif; }
+
+@media (max-width: 900px) {
+  .lookup-hero { grid-template-columns: 1fr; gap: 34px; }
+  .lookup-hero .hero-intro { max-width: 680px; }
+  .address-form { grid-template-columns: 1fr 1fr; }
+  .form-field:first-child { grid-column: 1 / -1; }
+  .district-grid { grid-template-columns: 1fr; }
+  .district-card { min-height: 150px; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.2); }
+  .district-card:last-child { border-bottom: 0; }
+}
+
+@media (max-width: 560px) {
+  .lookup-hero { padding-top: 58px; }
+  .lookup-content { padding-left: 16px; padding-right: 16px; }
+  .lookup-form-panel { padding: 27px 20px 30px; }
+  .address-form { grid-template-columns: 1fr; margin-top: 36px; }
+  .form-field, .form-field:first-child, .form-field-wide { grid-column: 1; }
+  .lookup-submit { width: 100%; }
+  .map-shell, .address-map { min-height: 350px; }
+  .location-grid { grid-template-columns: 1fr; }
+  .location-grid article:first-child { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.2); }
+}
+
+@media (prefers-reduced-motion: reduce) { .loading-spinner { animation: none; } }

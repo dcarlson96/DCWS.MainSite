@@ -4,6 +4,7 @@ namespace DCWS.ViewModels {
         public statusDotClass = ko.observable<string>("api-status-dot api-status-waiting");
         public statusTitle = ko.observable<string>("Checking API status");
         public navOpen = ko.observable<boolean>(false);
+        public addressLookup: AddressLookupViewModel | null = null;
 
         constructor(private readonly statusApiUrl: string) {
             this.init();

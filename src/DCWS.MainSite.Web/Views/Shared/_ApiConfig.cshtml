@@ -1,5 +1,11 @@
 @inject IConfiguration Configuration
 @{
     var statusApi = Configuration["Apis:StatusApi"];
+    var addressLookupApi = Configuration["Apis:AddressLookupApi"];
+    var arcGisApiKey = Configuration["ArcGis:ApiKey"];
 }
-<div id="api-config" data-status-api="@statusApi" hidden></div>
+<div id="api-config"
+     data-status-api="@statusApi"
+     data-address-lookup-api="@addressLookupApi"
+     data-arcgis-api-key="@arcGisApiKey"
+     hidden></div>
