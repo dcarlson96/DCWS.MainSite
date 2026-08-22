@@ -58,11 +58,16 @@ h1 em { color: var(--blue); font-style: normal; }
 .work-item-copy { position: relative; z-index: 1; }
 .work-item .project-disclosure { margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(16,21,26,.16); color: #626b72; font-size: 12px; line-height: 1.6; }
 
-.about { padding: 120px clamp(24px, 5vw, 76px); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(60px, 10vw, 160px); border-top: 1px solid var(--line); }
+.about { padding: 120px clamp(24px, 5vw, 76px); display: grid; grid-template-columns: minmax(280px, 350px) minmax(0, 720px); justify-content: center; align-items: center; gap: clamp(52px, 8vw, 120px); border-top: 1px solid var(--line); }
+.about-headshot { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 45%; border-radius: 18px; box-shadow: 0 16px 38px rgba(16, 21, 26, .1); }
+.about-content { min-width: 0; }
 .about h2 { margin: 0; font-size: clamp(40px, 4vw, 66px); line-height: 1.08; letter-spacing: -.05em; }
 .about h2 em, .contact h2 em { color: var(--blue); font-style: normal; }
-.about-copy > p { margin: 48px 0 42px; font-size: clamp(18px, 1.7vw, 23px); line-height: 1.65; color: #424a51; }
+.about-copy { margin-top: 38px; }
+.about-copy > p { margin: 0; font-size: clamp(17px, 1.45vw, 21px); line-height: 1.65; color: #424a51; }
+.about-copy > p + p { margin-top: 22px; }
 .skills { display: flex; flex-wrap: wrap; gap: 9px; }
+.about .skills { margin-top: 36px; }
 .skills span { padding: 9px 13px; border: 1px solid var(--line); font-size: 12px; font-weight: 600; }
 
 .contact { padding: 120px clamp(24px, 5vw, 76px) 140px; background: var(--blue); color: white; }
@@ -77,6 +82,8 @@ h1 em { color: var(--blue); font-style: normal; }
   .system-card { min-height: 440px; }
   .services { grid-template-columns: 1fr; gap: 52px; }
   .work-grid, .about { grid-template-columns: 1fr; }
+  .about { gap: 52px; }
+  .about-headshot { width: min(100%, 320px); justify-self: center; }
   .work-feature { border-right: 0; border-bottom: 1px solid var(--line); }
   .work-item { min-height: 520px; }
 }
@@ -94,6 +101,8 @@ h1 em { color: var(--blue); font-style: normal; }
   .work-item { min-height: 450px; }
   .work-meta { gap: 20px; }
   .work-meta span:last-child { text-align: right; }
-  .about { gap: 20px; padding-top: 84px; padding-bottom: 90px; }
+  .about { gap: 38px; padding-top: 84px; padding-bottom: 90px; }
+  .about-headshot { width: min(82vw, 280px); border-radius: 14px; }
+  .about-copy { margin-top: 30px; }
   .contact { padding-top: 90px; }
 }
