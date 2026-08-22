@@ -30,6 +30,9 @@ public sealed class HomePageTests : IClassFixture<WebApplicationFactory<Program>
         Assert.Contains("id=\"services\"", html);
         Assert.Contains("id=\"work\"", html);
         Assert.Contains("id=\"about\"", html);
+        Assert.Contains("src=\"/images/dylan-carlson-headshot.webp\"", html);
+        Assert.Contains("alt=\"Dylan Carlson, founder and software developer at DC Web Systems\"", html);
+        Assert.Contains("loading=\"lazy\"", html);
         Assert.Contains("dylan@dcwebsystems.com", html);
         Assert.Contains($"© {DateTime.UtcNow.Year} DC Web Systems", html);
     }
@@ -58,6 +61,7 @@ public sealed class HomePageTests : IClassFixture<WebApplicationFactory<Program>
     [InlineData("/fonts/dm-sans-latin.woff2", "font/woff2")]
     [InlineData("/fonts/manrope-latin.woff2", "font/woff2")]
     [InlineData("/images/favicon.svg", "image/svg+xml")]
+    [InlineData("/images/dylan-carlson-headshot.webp", "image/webp")]
     public async Task StaticAssets_AreServed(string path, string expectedMediaType)
     {
         var response = await _client.GetAsync(path);
