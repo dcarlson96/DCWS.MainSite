@@ -50,7 +50,7 @@ namespace DCWS.ViewModels {
     export class AddressLookupViewModel {
         public street = ko.observable<string>("");
         public city = ko.observable<string>("");
-        public state = ko.observable<string>("");
+        public state = ko.observable<string>("ID");
         public zipCode = ko.observable<string>("");
 
         public streetError = ko.observable<string>("");

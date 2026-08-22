@@ -50,12 +50,13 @@ h1 em { color: var(--blue); font-style: normal; }
 .map-pin { position: absolute; width: 13px; height: 13px; border: 3px solid var(--blue); background: var(--paper); border-radius: 50%; }
 .pin-a { left: 30%; top: 38%; }.pin-b { right: 23%; top: 24%; }.pin-c { right: 32%; bottom: 22%; }
 .work h3 { margin: 0 0 14px; font-size: clamp(25px, 2.3vw, 35px); letter-spacing: -.035em; }
-.work article > p { max-width: 620px; margin: 0; color: var(--muted); line-height: 1.65; }
-.work-stack { display: grid; grid-template-rows: 1fr 1fr; }
-.work-item { display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(30px, 4vw, 58px); }
-.work-item:first-child { border-bottom: 1px solid var(--line); }
-.work-item .work-meta { margin-bottom: auto; }
-.work-item h3 { margin-top: 70px; }
+.work article > p, .work-item-copy > p { max-width: 620px; margin: 0; color: var(--muted); line-height: 1.65; }
+.work-link { display: inline-block; margin-top: 28px; }
+.work-item { position: relative; min-height: 100%; padding: clamp(30px, 4vw, 58px); overflow: hidden; }
+.work-contribution { display: flex; flex-direction: column; background: #e7e6e1; }
+.contribution-marker { margin: auto 0 20px; color: rgba(41,89,255,.1); font: 700 clamp(120px, 15vw, 220px)/.78 var(--font-display), sans-serif; letter-spacing: -.09em; transform: translateX(-10px); }
+.work-item-copy { position: relative; z-index: 1; }
+.work-item .project-disclosure { margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(16,21,26,.16); color: #626b72; font-size: 12px; line-height: 1.6; }
 
 .about { padding: 120px clamp(24px, 5vw, 76px); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(60px, 10vw, 160px); border-top: 1px solid var(--line); }
 .about h2 { margin: 0; font-size: clamp(40px, 4vw, 66px); line-height: 1.08; letter-spacing: -.05em; }
@@ -77,6 +78,7 @@ h1 em { color: var(--blue); font-style: normal; }
   .services { grid-template-columns: 1fr; gap: 52px; }
   .work-grid, .about { grid-template-columns: 1fr; }
   .work-feature { border-right: 0; border-bottom: 1px solid var(--line); }
+  .work-item { min-height: 520px; }
 }
 @media (max-width: 560px) {
   .hero { padding-top: 60px; }
@@ -89,6 +91,9 @@ h1 em { color: var(--blue); font-style: normal; }
   .work .section-kicker { flex-direction: column; gap: 16px; margin-bottom: 28px; }
   .work .section-kicker .eyebrow { margin-bottom: 0; }
   .map-visual { height: 250px; }
+  .work-item { min-height: 450px; }
+  .work-meta { gap: 20px; }
+  .work-meta span:last-child { text-align: right; }
   .about { gap: 20px; padding-top: 84px; padding-bottom: 90px; }
   .contact { padding-top: 90px; }
 }

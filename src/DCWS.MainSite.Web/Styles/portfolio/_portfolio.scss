@@ -3,11 +3,12 @@
   border-bottom: 1px solid var(--line);
 }
 .portfolio-work { padding: 110px clamp(24px, 5vw, 76px) 130px; }
-.portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
+.portfolio-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--line); }
 .portfolio-item { display: flex; flex-direction: column; padding: clamp(26px, 3.2vw, 48px); border-right: 1px solid var(--line); }
 .portfolio-item:last-child { border-right: 0; }
 .portfolio-item h3 { margin: 40px 0 14px; font-size: clamp(22px, 2vw, 30px); letter-spacing: -.035em; }
 .portfolio-item > p { flex: 1; max-width: 620px; margin: 0 0 32px; color: var(--muted); line-height: 1.65; }
+.portfolio-item > .project-disclosure { flex: 0 0 auto; margin-top: -12px; padding-top: 18px; border-top: 1px solid var(--line); color: #626b72; font-size: 12px; line-height: 1.6; }
 
 @media (max-width: 900px) {
   .portfolio-grid { grid-template-columns: 1fr; }
