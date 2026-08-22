@@ -50,7 +50,7 @@ h1 em { color: var(--blue); font-style: normal; }
 .map-pin { position: absolute; width: 13px; height: 13px; border: 3px solid var(--blue); background: var(--paper); border-radius: 50%; }
 .pin-a { left: 30%; top: 38%; }.pin-b { right: 23%; top: 24%; }.pin-c { right: 32%; bottom: 22%; }
 .work h3 { margin: 0 0 14px; font-size: clamp(25px, 2.3vw, 35px); letter-spacing: -.035em; }
-.work article > p { max-width: 620px; margin: 0; color: var(--muted); line-height: 1.65; }
+.work article > p, .work-item-copy > p { max-width: 620px; margin: 0; color: var(--muted); line-height: 1.65; }
 .work-link { display: inline-block; margin-top: 28px; }
 .work-item { position: relative; min-height: 100%; padding: clamp(30px, 4vw, 58px); overflow: hidden; }
 .work-contribution { display: flex; flex-direction: column; background: #e7e6e1; }
