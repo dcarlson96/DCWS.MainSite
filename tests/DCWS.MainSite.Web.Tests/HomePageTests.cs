@@ -34,6 +34,25 @@ public sealed class HomePageTests : IClassFixture<WebApplicationFactory<Program>
         Assert.Contains($"© {DateTime.UtcNow.Year} DC Web Systems", html);
     }
 
+    [Fact]
+    public async Task HomePage_FeaturesOnlyTheTwoPublishedProjects()
+    {
+        var response = await _client.GetAsync("/");
+        var html = await response.Content.ReadAsStringAsync();
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Contains("Address &amp; District Lookup", html);
+        Assert.Contains("Utility Outage Map", html);
+        Assert.Contains("href=\"/address-lookup\"", html);
+        Assert.Contains("href=\"/Portfolio\"", html);
+        Assert.Contains("Professional contribution to an Idaho Power product.", html);
+        Assert.Contains("DC Web Systems is not affiliated with or endorsed by Idaho Power.", html);
+        Assert.Contains("href=\"https://tools.idahopower.com/outage\" target=\"_blank\" rel=\"noopener noreferrer\"", html);
+        Assert.DoesNotContain("Customer information transition", html);
+        Assert.DoesNotContain("Secure access management", html);
+        Assert.Equal(2, CountOccurrences(html, "<article class=\"work-"));
+    }
+
     [Theory]
     [InlineData("/css/site.css", "text/css")]
     [InlineData("/fonts/dm-sans-latin.woff2", "font/woff2")]
@@ -46,4 +65,7 @@ public sealed class HomePageTests : IClassFixture<WebApplicationFactory<Program>
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal(expectedMediaType, response.Content.Headers.ContentType?.MediaType);
     }
+
+    private static int CountOccurrences(string value, string searchValue) =>
+        value.Split(searchValue, StringSplitOptions.None).Length - 1;
 }
