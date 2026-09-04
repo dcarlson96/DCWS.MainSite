@@ -57,6 +57,20 @@ public sealed class HomePageTests : IClassFixture<WebApplicationFactory<Program>
     }
 
     [Theory]
+    [InlineData("/")]
+    [InlineData("/Portfolio")]
+    [InlineData("/address-lookup")]
+    public async Task SharedNavigation_IncludesDesktopAndMobileHomeLinks(string path)
+    {
+        var response = await _client.GetAsync(path);
+        var html = await response.Content.ReadAsStringAsync();
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(2, CountOccurrences(html, "href=\"/\">Home</a>"));
+        Assert.Contains("href=\"/\" data-bind=\"click: closeNav\">Home</a>", html);
+    }
+
+    [Theory]
     [InlineData("/css/site.css", "text/css")]
     [InlineData("/fonts/dm-sans-latin.woff2", "font/woff2")]
     [InlineData("/fonts/manrope-latin.woff2", "font/woff2")]
