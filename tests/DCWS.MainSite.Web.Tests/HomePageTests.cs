@@ -68,7 +68,9 @@ public sealed class HomePageTests : IClassFixture<WebApplicationFactory<Program>
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal(2, CountOccurrences(html, ">Home</a>"));
         Assert.Contains("href=\"/\">Home</a>", html);
-        Assert.Contains("href=\"/\" data-bind=\"click: closeNav\">Home</a>", html);
+        Assert.Matches(
+            "<a(?=[^>]*href=\"/\")(?=[^>]*data-bind=\"click: closeNav\")[^>]*>Home</a>",
+            html);
     }
 
     [Theory]
