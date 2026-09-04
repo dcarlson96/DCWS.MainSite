@@ -1,3 +1,4 @@
+@model HomeViewModel
 @{
     ViewData["Title"] = "DC Web Systems | Custom Web Applications";
 }
@@ -127,6 +128,31 @@
             </div>
         </div>
     </div>
+</section>
+
+<section class="home-testimonials" aria-labelledby="home-testimonials-heading">
+    <div class="section-kicker">
+        <div>
+            <p class="eyebrow"><span></span> Client experiences</p>
+            <h2 id="home-testimonials-heading">What Clients Say</h2>
+        </div>
+        <a class="button button-primary" asp-controller="Testimonials" asp-action="Index">
+            View all testimonials <span aria-hidden="true">↗</span>
+        </a>
+    </div>
+    @if (Model.Testimonials.Count > 0)
+    {
+        <div class="testimonial-grid">
+            @foreach (var testimonial in Model.Testimonials)
+            {
+                <partial name="_TestimonialCard" model="testimonial" />
+            }
+        </div>
+    }
+    else
+    {
+        <p class="testimonials-empty">Approved client stories will be shared here soon.</p>
+    }
 </section>
 
 <section class="contact">

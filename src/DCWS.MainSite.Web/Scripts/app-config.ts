@@ -1,6 +1,7 @@
 interface ApiConfig {
     statusApi: string;
     addressLookupApi: string;
+    testimonialsApi: string;
 }
 
 interface ArcGisConfig {
@@ -18,10 +19,10 @@ interface Window {
 
 (function () {
     window.AppConfig = window.AppConfig || {
-        apis: { statusApi: "", addressLookupApi: "" },
+        apis: { statusApi: "", addressLookupApi: "", testimonialsApi: "" },
         arcGis: { apiKey: "" }
     };
-    window.AppConfig.apis = window.AppConfig.apis || { statusApi: "", addressLookupApi: "" };
+    window.AppConfig.apis = window.AppConfig.apis || { statusApi: "", addressLookupApi: "", testimonialsApi: "" };
     window.AppConfig.arcGis = window.AppConfig.arcGis || { apiKey: "" };
 
     const configElement = document.getElementById("api-config");
@@ -29,6 +30,7 @@ interface Window {
     if (configElement) {
         window.AppConfig.apis.statusApi = configElement.dataset.statusApi || "";
         window.AppConfig.apis.addressLookupApi = configElement.dataset.addressLookupApi || "";
+        window.AppConfig.apis.testimonialsApi = configElement.dataset.testimonialsApi || "";
         window.AppConfig.arcGis.apiKey = configElement.dataset.arcgisApiKey || "";
     }
 })();

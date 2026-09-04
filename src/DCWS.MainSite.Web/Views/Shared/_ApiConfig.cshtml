@@ -2,10 +2,12 @@
 @{
     var statusApi = Configuration["Apis:StatusApi"];
     var addressLookupApi = Configuration["Apis:AddressLookupApi"];
+    var testimonialsApi = Configuration["Apis:TestimonialsApi"];
     var arcGisApiKey = Configuration["ArcGis:ApiKey"];
 }
 <div id="api-config"
      data-status-api="@statusApi"
      data-address-lookup-api="@addressLookupApi"
+     data-testimonials-api="@testimonialsApi"
      data-arcgis-api-key="@arcGisApiKey"
      hidden></div>

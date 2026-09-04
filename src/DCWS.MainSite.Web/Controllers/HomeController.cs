@@ -1,14 +1,19 @@
 using System.Diagnostics;
 using DCWS.MainSite.Web.Models;
+using DCWS.MainSite.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DCWS.MainSite.Web.Controllers;
 
-public class HomeController : Controller
+public class HomeController(ITestimonialService testimonialService) : Controller
 {
-    public IActionResult Index()
+    public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
-        return View();
+        var testimonials = await testimonialService.GetPublishedAsync(cancellationToken);
+        return View(new HomeViewModel
+        {
+            Testimonials = testimonials.Take(3).ToList()
+        });
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

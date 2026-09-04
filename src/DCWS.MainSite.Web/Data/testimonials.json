@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Example Client",
+    "companyName": "Example Company",
+    "review": "Replace this inactive example with an approved client testimonial.",
+    "projectType": "Website Development",
+    "displayOrder": 1,
+    "isActive": false
+  }
+]

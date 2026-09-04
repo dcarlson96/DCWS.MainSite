@@ -5,6 +5,7 @@ namespace DCWS.ViewModels {
         public statusTitle = ko.observable<string>("Checking API status");
         public navOpen = ko.observable<boolean>(false);
         public addressLookup: AddressLookupViewModel | null = null;
+        public testimonialSubmission: TestimonialSubmissionViewModel | null = null;
 
         constructor(private readonly statusApiUrl: string) {
             this.init();

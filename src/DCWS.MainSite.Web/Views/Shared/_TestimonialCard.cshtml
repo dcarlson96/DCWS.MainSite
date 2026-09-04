@@ -1,0 +1,19 @@
+@model Testimonial
+
+<article class="testimonial-card">
+    <span class="testimonial-quote" aria-hidden="true">“</span>
+    <blockquote>
+        <p>@Model.Review</p>
+        <div class="testimonial-attribution">
+            <cite>@Model.Name</cite>
+            @if (!string.IsNullOrWhiteSpace(Model.CompanyName))
+            {
+                <span>@Model.CompanyName</span>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.ProjectType))
+            {
+                <span class="testimonial-project">@Model.ProjectType</span>
+            }
+        </div>
+    </blockquote>
+</article>

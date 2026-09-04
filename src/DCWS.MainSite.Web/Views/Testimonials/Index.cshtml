@@ -1,0 +1,129 @@
+@model TestimonialsPageViewModel
+@{
+    ViewData["Title"] = "Testimonials | DC Web Systems";
+}
+
+<div id="testimonials-page" data-bind="with: testimonialSubmission">
+    <section class="testimonials-hero" id="top">
+        <div>
+            <p class="eyebrow"><span></span> Client experiences</p>
+            <h1>What Clients <em>Say</em></h1>
+        </div>
+        <div class="testimonials-hero-copy">
+            <p>Experiences shared by people who have worked with DC Web Systems.</p>
+            <button id="add-testimonial-button"
+                    class="button button-primary testimonial-open"
+                    type="button"
+                    data-bind="click: openModal">
+                Add Testimonial <span aria-hidden="true">↗</span>
+            </button>
+        </div>
+    </section>
+
+    <div id="testimonial-success"
+         class="testimonial-notice testimonial-notice-success"
+         role="status"
+         tabindex="-1"
+         style="display: none"
+         data-bind="visible: successMessage, text: successMessage"></div>
+
+    <section class="testimonials-content" aria-label="Published testimonials">
+        @if (Model.Testimonials.Count > 0)
+        {
+            <div class="testimonial-grid">
+                @foreach (var testimonial in Model.Testimonials)
+                {
+                    <partial name="_TestimonialCard" model="testimonial" />
+                }
+            </div>
+        }
+        else
+        {
+            <p class="testimonials-empty">Approved client stories will be shared here soon.</p>
+        }
+    </section>
+
+    <div class="testimonial-modal-layer"
+         style="display: none"
+         data-bind="visible: isModalOpen, event: { click: closeFromBackdrop, keydown: handleKeydown }, attr: { 'aria-hidden': isModalOpen() ? 'false' : 'true' }">
+        <section id="testimonial-modal"
+                 class="testimonial-modal"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="testimonial-modal-title"
+                 tabindex="-1"
+                 data-bind="event: { click: stopPropagation }">
+            <div class="testimonial-modal-heading">
+                <div>
+                    <p class="lookup-step">SHARE YOUR EXPERIENCE</p>
+                    <h2 id="testimonial-modal-title">Add Testimonial</h2>
+                </div>
+                <button class="testimonial-modal-close"
+                        type="button"
+                        aria-label="Close testimonial form"
+                        data-bind="click: closeModal, disable: isSubmitting">×</button>
+            </div>
+            <p class="testimonial-modal-intro">
+                Your submission will be emailed to DC Web Systems for review and will not be published automatically.
+            </p>
+
+            <form class="testimonial-form" data-bind="submit: submit" novalidate>
+                <div class="form-field">
+                    <label for="testimonial-name">Name</label>
+                    <input id="testimonial-name"
+                           name="Name"
+                           type="text"
+                           autocomplete="name"
+                           maxlength="100"
+                           required
+                           data-bind="textInput: name, attr: { 'aria-invalid': nameError() ? 'true' : 'false', 'aria-describedby': nameError() ? 'testimonial-name-error' : null }" />
+                    <p id="testimonial-name-error" class="field-error" style="display: none" data-bind="visible: nameError, text: nameError"></p>
+                </div>
+
+                <div class="form-field">
+                    <label for="testimonial-review">Review</label>
+                    <textarea id="testimonial-review"
+                              name="Review"
+                              rows="7"
+                              maxlength="2000"
+                              required
+                              data-bind="textInput: review, attr: { 'aria-invalid': reviewError() ? 'true' : 'false', 'aria-describedby': reviewError() ? 'testimonial-review-error' : null }"></textarea>
+                    <p id="testimonial-review-error" class="field-error" style="display: none" data-bind="visible: reviewError, text: reviewError"></p>
+                </div>
+
+                <div class="testimonial-honeypot" aria-hidden="true">
+                    <label for="testimonial-website">Website</label>
+                    <input id="testimonial-website"
+                           name="Website"
+                           type="text"
+                           tabindex="-1"
+                           autocomplete="off"
+                           data-bind="textInput: website" />
+                </div>
+
+                <div class="testimonial-notice testimonial-notice-error"
+                     role="alert"
+                     style="display: none"
+                     data-bind="visible: errorMessage, text: errorMessage"></div>
+
+                <div class="testimonial-form-actions">
+                    <button class="button testimonial-cancel"
+                            type="button"
+                            data-bind="click: closeModal, disable: isSubmitting">Cancel</button>
+                    <button class="button button-primary testimonial-submit"
+                            type="submit"
+                            data-bind="disable: isSubmitting">
+                        <span data-bind="visible: !isSubmitting()">Submit Testimonial</span>
+                        <span class="loading-label" style="display: none" data-bind="visible: isSubmitting">
+                            <span class="loading-spinner" aria-hidden="true"></span> Submitting...
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/ViewModels/TestimonialSubmissionViewModel.js" asp-append-version="true"></script>
+}
