@@ -20,9 +20,9 @@ public sealed class TestimonialServiceTests : IDisposable
             Path.Combine(dataDirectory, "testimonials.json"),
             """
             [
-              { "name": "Second", "review": "Review 2", "displayOrder": 20, "isActive": true },
-              { "name": "Hidden", "review": "Review 3", "displayOrder": 1, "isActive": false },
-              { "name": "First", "review": "Review 1", "displayOrder": 10, "isActive": true }
+              { "name": "Second", "organization": "Organization 2", "review": "Review 2", "displayOrder": 20, "isActive": true },
+              { "name": "Hidden", "organization": "Hidden Organization", "review": "Review 3", "displayOrder": 1, "isActive": false },
+              { "name": "First", "organization": "Organization 1", "review": "Review 1", "displayOrder": 10, "isActive": true }
             ]
             """);
         var service = new TestimonialService(
@@ -33,8 +33,16 @@ public sealed class TestimonialServiceTests : IDisposable
 
         Assert.Collection(
             result,
-            testimonial => Assert.Equal("First", testimonial.Name),
-            testimonial => Assert.Equal("Second", testimonial.Name));
+            testimonial =>
+            {
+                Assert.Equal("First", testimonial.Name);
+                Assert.Equal("Organization 1", testimonial.Organization);
+            },
+            testimonial =>
+            {
+                Assert.Equal("Second", testimonial.Name);
+                Assert.Equal("Organization 2", testimonial.Organization);
+            });
         Assert.DoesNotContain(result, testimonial => testimonial.Name == "Hidden");
     }
 

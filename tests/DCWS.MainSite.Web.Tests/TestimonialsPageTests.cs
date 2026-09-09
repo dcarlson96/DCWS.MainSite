@@ -26,7 +26,10 @@ public sealed class TestimonialsPageTests : IClassFixture<WebApplicationFactory<
         Assert.Contains("What Clients <em>Say</em>", html);
         Assert.Contains("id=\"add-testimonial-button\"", html);
         Assert.Contains("id=\"testimonial-modal\"", html);
-        Assert.Contains("maxlength=\"100\"", html);
+        Assert.Contains("id=\"testimonial-name\"", html);
+        Assert.Contains("id=\"testimonial-organization\"", html);
+        Assert.Contains("data-bind=\"textInput: organization", html);
+        Assert.Equal(2, CountOccurrences(html, "maxlength=\"100\""));
         Assert.Contains("maxlength=\"2000\"", html);
         Assert.Contains("will not be published automatically", html);
         Assert.DoesNotContain("Replace this inactive example", html);

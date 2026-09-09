@@ -5,6 +5,7 @@ interface TestimonialSubmitApiResponse {
 
 interface TestimonialSubmitRequest {
     name: string;
+    organization: string;
     review: string;
     website: string;
 }
@@ -12,10 +13,12 @@ interface TestimonialSubmitRequest {
 namespace DCWS.ViewModels {
     export class TestimonialSubmissionViewModel {
         public name = ko.observable<string>("");
+        public organization = ko.observable<string>("");
         public review = ko.observable<string>("");
         public website = ko.observable<string>("");
 
         public nameError = ko.observable<string>("");
+        public organizationError = ko.observable<string>("");
         public reviewError = ko.observable<string>("");
         public errorMessage = ko.observable<string>("");
         public successMessage = ko.observable<string>("");
@@ -91,6 +94,7 @@ namespace DCWS.ViewModels {
             this.errorMessage("");
             const request: TestimonialSubmitRequest = {
                 name: this.name().trim(),
+                organization: this.organization().trim(),
                 review: this.review().trim(),
                 website: this.website()
             };
@@ -113,6 +117,7 @@ namespace DCWS.ViewModels {
                     }
 
                     this.name("");
+                    this.organization("");
                     this.review("");
                     this.website("");
                     this.successMessage("Thanks! Your testimonial has been submitted for review.");
@@ -134,12 +139,19 @@ namespace DCWS.ViewModels {
         private validate(): boolean {
             this.clearValidation();
             const name = this.name().trim();
+            const organization = this.organization().trim();
             const review = this.review().trim();
 
             if (!name) {
                 this.nameError("Enter your name.");
             } else if (name.length > 100) {
                 this.nameError("Name cannot exceed 100 characters.");
+            }
+
+            if (!organization) {
+                this.organizationError("Enter your organization.");
+            } else if (organization.length > 100) {
+                this.organizationError("Organization cannot exceed 100 characters.");
             }
 
             if (!review) {
@@ -150,15 +162,18 @@ namespace DCWS.ViewModels {
 
             if (this.nameError()) {
                 document.getElementById("testimonial-name")?.focus();
+            } else if (this.organizationError()) {
+                document.getElementById("testimonial-organization")?.focus();
             } else if (this.reviewError()) {
                 document.getElementById("testimonial-review")?.focus();
             }
 
-            return !this.nameError() && !this.reviewError();
+            return !this.nameError() && !this.organizationError() && !this.reviewError();
         }
 
         private clearValidation(): void {
             this.nameError("");
+            this.organizationError("");
             this.reviewError("");
             this.errorMessage("");
         }

@@ -1,7 +1,7 @@
 [
   {
     "name": "Example Client",
-    "companyName": "Example Company",
+    "organization": "Example Organization",
     "review": "Replace this inactive example with an approved client testimonial.",
     "projectType": "Website Development",
     "displayOrder": 1,

@@ -81,6 +81,18 @@
                 </div>
 
                 <div class="form-field">
+                    <label for="testimonial-organization">Organization</label>
+                    <input id="testimonial-organization"
+                           name="Organization"
+                           type="text"
+                           autocomplete="organization"
+                           maxlength="100"
+                           required
+                           data-bind="textInput: organization, attr: { 'aria-invalid': organizationError() ? 'true' : 'false', 'aria-describedby': organizationError() ? 'testimonial-organization-error' : null }" />
+                    <p id="testimonial-organization-error" class="field-error" style="display: none" data-bind="visible: organizationError, text: organizationError"></p>
+                </div>
+
+                <div class="form-field">
                     <label for="testimonial-review">Review</label>
                     <textarea id="testimonial-review"
                               name="Review"

@@ -6,9 +6,9 @@
         <p>@Model.Review</p>
         <div class="testimonial-attribution">
             <cite>@Model.Name</cite>
-            @if (!string.IsNullOrWhiteSpace(Model.CompanyName))
+            @if (!string.IsNullOrWhiteSpace(Model.Organization))
             {
-                <span>@Model.CompanyName</span>
+                <span>@Model.Organization</span>
             }
             @if (!string.IsNullOrWhiteSpace(Model.ProjectType))
             {
