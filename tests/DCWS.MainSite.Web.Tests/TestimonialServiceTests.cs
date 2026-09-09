@@ -2,6 +2,7 @@ using DCWS.MainSite.Web.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging.Abstractions;
+using Xunit;
 
 namespace DCWS.MainSite.Web.Tests;
 
