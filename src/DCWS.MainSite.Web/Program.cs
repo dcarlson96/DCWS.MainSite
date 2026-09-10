@@ -1,6 +1,9 @@
+using DCWS.MainSite.Web.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<ITestimonialService, TestimonialService>();
 
 var app = builder.Build();
 

@@ -7,6 +7,10 @@
     <UserSecretsId>DCWS.MainSite.Web-local</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Update="Data\testimonials.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <!--
     Front-end assets (TypeScript in Scripts/, SCSS in Styles/) are authored outside wwwroot
     and compiled by Gulp into wwwroot/js and wwwroot/css. The compiled output is committed to

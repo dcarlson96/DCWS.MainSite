@@ -115,6 +115,19 @@ Generated assets under `wwwroot/css` and `wwwroot/js` are currently committed to
 
 Run the suite from Test Explorer or with `dotnet test DCWS.MainSite.sln`.
 
+## Testimonials
+
+Approved testimonials are stored in
+`src/DCWS.MainSite.Web/Data/testimonials.json`. The MVC application reads this
+file directly, displays only entries with `isActive: true`, and sorts them by
+`displayOrder`. To publish a reviewed submission, add it to this file and deploy
+the website; visitor submissions never modify the file or use SQL Server.
+
+The submission form posts to `Apis:TestimonialsApi`. Production defaults to
+`https://api.dcwebsystems.com/api/testimonials`; local development defaults to
+`https://localhost:7194/api/testimonials`. Email delivery is configured in the
+API repository, not in this frontend application.
+
 ## Deployment
 
 `.github/workflows/azure-app-service.yml` restores, builds, tests, and publishes the .NET 10 MVC web project, signs in to Azure with GitHub Actions OpenID Connect (OIDC), and deploys the published output to the Windows App Service `dcwebsystems-prod`. It runs after a push to `main` and can also be started manually from the GitHub Actions page. Manual runs must use the `main` branch; runs from any other ref are skipped.
