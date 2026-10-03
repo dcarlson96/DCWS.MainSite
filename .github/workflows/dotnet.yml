@@ -60,7 +60,7 @@ jobs:
           done
 
           test -s /tmp/dcws-home.html
-          grep --quiet '<title>DC Web Systems | Custom Web Applications</title>' /tmp/dcws-home.html
+          grep --quiet '<title>DC Web Systems | Websites &amp; Custom Software</title>' /tmp/dcws-home.html
           curl --fail --silent --show-error http://127.0.0.1:5080/address-lookup > /tmp/dcws-address-lookup.html
           grep --quiet '<title>Address &amp; District Lookup | DC Web Systems</title>' /tmp/dcws-address-lookup.html
           grep --quiet 'id="address-lookup-page"' /tmp/dcws-address-lookup.html

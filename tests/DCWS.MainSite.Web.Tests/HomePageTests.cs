@@ -24,8 +24,8 @@ public sealed class HomePageTests : IClassFixture<WebApplicationFactory<Program>
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("text/html", response.Content.Headers.ContentType?.MediaType);
-        Assert.Contains("<title>DC Web Systems | Custom Web Applications</title>", html);
-        Assert.Contains("Custom web applications, customer portals, APIs, and system integrations built in Boise, Idaho.", html);
+        Assert.Contains("<title>DC Web Systems | Websites &amp; Custom Software</title>", html);
+        Assert.Contains("Professional websites, WordPress sites, custom web applications, and integrations for businesses and organizations in Boise, Idaho.", html);
         Assert.Contains("id=\"top\"", html);
         Assert.Contains("id=\"services\"", html);
         Assert.Contains("id=\"work\"", html);
