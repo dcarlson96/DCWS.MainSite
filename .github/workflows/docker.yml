@@ -1,0 +1,33 @@
+name: Verify Docker image
+
+on:
+  push:
+    branches:
+      - feature/digitalocean-migration
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t dcws-mainsite:test .
+      - name: Smoke test published site and assets
+        shell: bash
+        run: |
+          docker run -d --name dcws-mainsite-test -p 127.0.0.1:8080:8080 dcws-mainsite:test
+          trap 'docker rm -f dcws-mainsite-test >/dev/null 2>&1 || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8080/ >/tmp/home.html; then break; fi
+            sleep 2
+          done
+          test -s /tmp/home.html
+          curl --fail --silent --show-error http://127.0.0.1:8080/css/site.css >/dev/null
+          curl --fail --silent --show-error http://127.0.0.1:8080/js/Layout.Main.js >/dev/null
+          curl --fail --silent --show-error http://127.0.0.1:8080/fonts/dm-sans-latin.woff2 >/dev/null
